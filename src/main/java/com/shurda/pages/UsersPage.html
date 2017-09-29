@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org">
+<head>
+
+</head>
+<body>
+<wicket:extend>
+    <script>
+        function myFunction() {
+            // Declare variables
+            var input, filter, table, tr, td_name, td_password, i, column;
+            input = document.getElementById("search");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            column = document.getElementById("fio");
+
+            for (i = 0; i < tr.length; i++) {
+                td_name = tr[i].getElementsByTagName("span")[column.selectedIndex + 1];
+                if (td_name) {
+//                    if (td_name.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    var s = td_name.innerHTML.toUpperCase();
+                    if (s.includes(filter)) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+    <div class="container">
+
+        <div>
+            <div>
+                <select id="fio">
+                    <option value="First Name">First Name</option>
+                    <option value="Last Name">Last Name</option>
+                    <option value="Email">Email</option>
+                </select>
+
+                <input id="search" type="text" onchange="myFunction()" placeholder="Enter searching string" size="40"/>
+                <input type="submit" value="search" onclick="myFunction()" name="search"/>
+                <br>
+                <br>
+
+            </div>
+            <table id="myTable" class="table table-hover">
+
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <!--<th>Password</th>-->
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr wicket:id="users">
+                    <td><span wicket:id="id"></span></td>
+                    <td><span wicket:id="firstName"></span></td>
+                    <td><span wicket:id="lastName"></span></td>
+                    <td><span wicket:id="email"></span></td>
+                    <!--<td><span wicket:id="password"></span></td>-->
+                    <td>
+                        <a href wicket:id="removeUserLink">Remove</a>
+                    </td>
+
+                    <td>
+                        <a href wicket:id="editUserLink">Edit</a>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <a href="#" wicket:id="addUserPageLink">Add new User
+                </a>
+            </div>
+        </div>
+
+    </div>
+</wicket:extend>
+</body>
+</html>
